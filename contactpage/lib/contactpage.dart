@@ -38,7 +38,7 @@ class _BenimUygState extends State<BenimUyg> {
   }
 
   void _launchtel() async {
-    if (!await launch(_tel)) throw 'Could no launch $_tel';
+    if (!await launch(_tel)) throw 'Could not launch $_tel';
   }
 
   @override
@@ -115,7 +115,7 @@ class _BenimUygState extends State<BenimUyg> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      tooltip: 'İnstagram',
+                      tooltip: 'İnstagra',
                       onPressed: _launchiURL,
                       icon: Icon(
                         FontAwesomeIcons.instagram,
