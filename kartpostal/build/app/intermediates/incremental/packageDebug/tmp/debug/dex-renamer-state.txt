@@ -1,0 +1,4 @@
+#Wed Feb 09 15:44:40 TRT 2022
+base.0=/Users/macbook/StudioProjects/untitled5/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
