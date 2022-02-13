@@ -13,7 +13,7 @@ void main() {
               Container(
                 color: Colors.white,
                 height: 100,
-                child: Text('1.Con'),
+                child: Text('1.Cont'),
               ),
               Container(
                 child: Row(
