@@ -22,7 +22,7 @@ class _BenimUygState extends State<BenimUyg> {
   String _tel = 'tel:+90-535-943-1412';
 
   void _launchiURL() async {
-    if (!await launch(_instagramurl)) throw 'Could no launch $_instagramurl';
+    if (!await launch(_instagramurl)) throw 'Could not launch $_instagramurl';
   }
 
   void _launchfURL() async {
