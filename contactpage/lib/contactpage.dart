@@ -38,7 +38,7 @@ class _BenimUygState extends State<BenimUyg> {
   }
 
   void _launchtel() async {
-    if (!await launch(_tel)) throw 'Could not launch $_tel';
+    if (!await launch(_tel)) throw 'Could no launch $_tel';
   }
 
   @override
