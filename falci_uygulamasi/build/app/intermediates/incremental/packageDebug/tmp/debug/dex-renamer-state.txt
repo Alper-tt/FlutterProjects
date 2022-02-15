@@ -1,4 +1,4 @@
-#Sat Feb 12 12:18:30 TRT 2022
+#Tue Feb 15 13:45:42 TRT 2022
 base.0=/Users/macbook/StudioProjects/falci_uygulamasi/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

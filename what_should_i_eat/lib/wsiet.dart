@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,11 +13,13 @@ class BenimUygulamam extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.white38,
           centerTitle: true,
           title: Text(
-            'BUGÜN NE YESEM?',
-            style: TextStyle(color: Colors.black),
+            'WHAT SHOULD I EAT ?',
+            style: GoogleFonts.pacifico(
+              color: Colors.black,
+            )
           ),
         ),
         body: YemekSayfasi(),
