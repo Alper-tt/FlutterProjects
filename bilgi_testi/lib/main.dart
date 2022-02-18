@@ -1,4 +1,3 @@
-
 import 'package:bilgi_testi/test_veri.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
@@ -35,24 +34,27 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
 
   void butonFonksiyonu(bool check) {
     if (test_1.testBittiMi() == true) {
-      void showDialog() {
-        context: context;
-        builder:(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('selam'),
-            content: new Text('aselam'),
+            title: new Text("Bravo test bitti!!!"),
             actions: <Widget>[
+              // usually buttons at the bottom of the dialog
               new FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: new Text('hello'))
+                child: new Text("Başa Dön"),
+                onPressed: () {
+                  setState(() {
+                    test_1.sayacSifirla();
+                    secimler = [];
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
             ],
           );
-        };
-      }
-      test_1.sayacSifirla();
-      secimler = [];
+        },
+      );
     } else {
       setState(() {
         test_1.getSoruYanit() == check
