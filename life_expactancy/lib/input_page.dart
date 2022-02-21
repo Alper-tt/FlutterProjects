@@ -1,7 +1,7 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:life_expactancy/result_page.dart';
+import 'package:life_expactancy/user_data.dart';
 import './container.dart';
 import './column.dart';
 import './constants.dart';
@@ -22,12 +22,15 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        backgroundColor: Colors.lightBlue[300],
+        centerTitle: true,
+        title: Text(
           'LİFE EXPACTANCY',
-          style: TextStyle(color: Colors.black),
+          style: kTextStyle,
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
@@ -135,6 +138,32 @@ class _InputPageState extends State<InputPage> {
                   ),
                 ),
               ],
+            ),
+          ),
+          ButtonTheme(
+            height: 50,
+            child: FlatButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultPage(
+                      UserData(
+                        weight: weight,
+                        height: height,
+                        selectedSex: selectedSex,
+                        noc: noc,
+                        noe: noe,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                'HESAPLA',
+                style: kTextStyle,
+              ),
+              color: Colors.white,
             ),
           ),
         ],
