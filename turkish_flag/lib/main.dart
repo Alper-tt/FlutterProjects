@@ -7,11 +7,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: TurkBayragi());
+    return MaterialApp(home: TurkishFlag());
   }
 }
 
-class TurkBayragi extends StatelessWidget {
+class TurkishFlag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
