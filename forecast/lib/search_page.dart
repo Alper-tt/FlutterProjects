@@ -8,6 +8,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +24,6 @@ class _SearchPageState extends State<SearchPage> {
         body: Center(
           child: Column(
             children: const <Widget>[
-              
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50),
                   child: TextField(

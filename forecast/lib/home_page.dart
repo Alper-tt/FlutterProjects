@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forecast/search_page.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,12 +14,20 @@ class _HomePageState extends State<HomePage> {
   String city = 'Ankara';
   int temprature = 20;
   var locationData;
+  var woeid;
 
   Future<void> getLocationData() async {
     locationData = await http.get(Uri.parse(
         'https://www.metaweather.com/api/location/search/?query=Ankara'));
     var locationDataParsed = jsonDecode(locationData.body);
     woeid = locationDataParsed[0]['woeid'];
+  }
+
+  @override
+  void initState() {
+    getLocationData();
+    print('woeid = $woeid');
+    super.initState();
   }
 
   @override
@@ -33,15 +42,6 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FlatButton(
-                  onPressed: () async {
-                    await getLocationData();
-                    print(woeid);
-                  },
-                  child: Text(
-                    'getLocationData',
-                  ),
-                  color: Colors.grey),
               Text(
                 '$temprature° C',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70),
