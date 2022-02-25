@@ -10,12 +10,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String city = 'İstanbul';
+  String city = 'Ankara';
   int temprature = 20;
   var locationData;
 
   Future<void> getLocationData() async {
-    locationData = await http.get('/api/location/search/?query=İstanbul');
+    locationData = await http.get(Uri.parse(
+        'https://www.metaweather.com/api/location/search/?query=Ankara'));
+    var locationDataParsed = jsonDecode(locationData.body);
+    woeid = locationDataParsed[0]['woeid'];
   }
 
   @override
@@ -31,9 +34,9 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FlatButton(
-                  onPressed: () {
-                    getLocationData();
-                    print(locationData);
+                  onPressed: () async {
+                    await getLocationData();
+                    print(woeid);
                   },
                   child: Text(
                     'getLocationData',
