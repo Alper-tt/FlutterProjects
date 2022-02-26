@@ -160,7 +160,7 @@ class _InputPageState extends State<InputPage> {
                 );
               },
               child: Text(
-                'HESAPLA',
+                'CALCULATE',
                 style: kTextStyle,
               ),
               color: Colors.white,
