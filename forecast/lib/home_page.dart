@@ -5,6 +5,9 @@ import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 
+import 'DailyWeatherCreater.dart';
+import 'lists.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -13,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String city = 'Istanbul';
+  String? city;
   double? temprature;
   var weatherData;
   var locationData;
@@ -24,9 +27,6 @@ class _HomePageState extends State<HomePage> {
   Position? position;
   LocationPermission? permission;
 
-  List temps = [1, 2, 3, 4, 5];
-  List abbrs = ['1', '2', '3', '4', '5'];
-  List dates = ['1', '2', '3', '4', '5'];
 
   var spinkit = SpinKitRipple(
     color: Colors.cyan,
@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
         dates[a] =
             weatherDataParsed['consolidated_weather'][a + 1]['applicable_date'];
       }
+
       weather_abbr =
           weatherDataParsed['consolidated_weather'][0]['weather_state_abbr'];
     });
@@ -178,54 +179,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Container buildDailyWeatherCards(BuildContext context) {
-    List <Widget> cards = [Container(),Container(),Container(),Container(),Container()];
+    
+
 
     for (int a = 0; a < cards.length; a++) {
-      cards[a] = DailyWeather(image: abbrs[a], temp: temps[a].round(), date: dates[a]);
+      cards[a] =
+          DailyWeather(image: abbrs[a], temp: temps[a].round(), date: dates[a]);
     }
+
     return Container(
       height: 120,
       width: MediaQuery.of(context).size.width * 0.8,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: cards,
-      ),
-    );
-  }
-}
-
-class DailyWeather extends StatelessWidget {
-  final String? image;
-  final int? temp;
-  final String? date;
-
-  const DailyWeather(
-      {Key? key,
-      @required this.image,
-      @required this.temp,
-      @required this.date})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.transparent,
-      elevation: 2,
-      child: Container(
-        height: 120,
-        width: 100,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              'https://www.metaweather.com/static/img/weather/png/$image.png',
-              height: 50,
-              width: 50,
-            ),
-            Text('$temp° C'),
-            Text('$date'),
-          ],
-        ),
       ),
     );
   }
