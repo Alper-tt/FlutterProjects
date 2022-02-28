@@ -18,10 +18,10 @@ class _SearchPageState extends State<SearchPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text('"${myController.text}" ==> INVALID City!!!'),
+            title: Text('"${myController.text}" ==> INVALID City!!!'),
             actions: <Widget>[
-              new FlatButton(
-                child: new Text("Try again"),
+              FlatButton(
+                child: Text("Try again"),
                 onPressed: () {
                   setState(() {});
                   Navigator.of(context).pop();

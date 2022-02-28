@@ -19,17 +19,28 @@ class _HomePageState extends State<HomePage> {
   var locationData;
   var woeid;
   var weather_state;
-  var weather_abbr = 'c';
+  var weather_abbr = 't';
+  var date;
   Position? position;
+  LocationPermission? permission;
+
+  List temps = [1, 2, 3, 4, 5];
+  List abbrs = ['1', '2', '3', '4', '5'];
+  List dates = ['1', '2', '3', '4', '5'];
+
   var spinkit = SpinKitRipple(
     color: Colors.cyan,
     size: 50,
   );
 
   Future<void> getDevicePosition() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
-    print(position);
+    try {
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print(position);
+    } catch (error) {
+      print('$error');
+    }
   }
 
   Future<void> getLocationData() async {
@@ -56,7 +67,16 @@ class _HomePageState extends State<HomePage> {
         weatherDataParsed['consolidated_weather'][0]['weather_state_name'];
 
     setState(() {
+      date = weatherDataParsed['consolidated_weather'][0]['applicable_date'];
       temprature = weatherDataParsed['consolidated_weather'][0]['the_temp'];
+
+      for (int a = 0; a < 5; a++) {
+        temps[a] = weatherDataParsed['consolidated_weather'][a + 1]['the_temp'];
+        abbrs[a] = weatherDataParsed['consolidated_weather'][a + 1]
+            ['weather_state_abbr'];
+        dates[a] =
+            weatherDataParsed['consolidated_weather'][a + 1]['applicable_date'];
+      }
       weather_abbr =
           weatherDataParsed['consolidated_weather'][0]['weather_state_abbr'];
     });
@@ -72,15 +92,17 @@ class _HomePageState extends State<HomePage> {
     await getLocationData();
     getWeatherData();
   }
-  
 
-
-
+  Future<void> checkAndRequestLocationAccess() async {
+    await Geolocator.requestPermission();
+    print(Geolocator.requestPermission);
+    await getDataFromAPI();
+  }
 
   @override
   void initState() {
     getDataFromAPI();
-
+    checkAndRequestLocationAccess();
     super.initState();
   }
 
@@ -99,6 +121,12 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      child: Image.network(
+                          'https://www.metaweather.com/static/img/weather/png/$weather_abbr.png'),
+                    ),
                     Text(
                       '${temprature?.round()}° C',
                       style: TextStyle(
@@ -135,13 +163,70 @@ class _HomePageState extends State<HomePage> {
                               city = city;
                             });
                           },
-                        )
+                        ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    buildDailyWeatherCards(context)
                   ],
                 ),
               ),
             ),
+    );
+  }
+
+  Container buildDailyWeatherCards(BuildContext context) {
+    List <Widget> cards = [Container(),Container(),Container(),Container(),Container()];
+
+    for (int a = 0; a < cards.length; a++) {
+      cards[a] = DailyWeather(image: abbrs[a], temp: temps[a].round(), date: dates[a]);
+    }
+    return Container(
+      height: 120,
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: cards,
+      ),
+    );
+  }
+}
+
+class DailyWeather extends StatelessWidget {
+  final String? image;
+  final int? temp;
+  final String? date;
+
+  const DailyWeather(
+      {Key? key,
+      @required this.image,
+      @required this.temp,
+      @required this.date})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.transparent,
+      elevation: 2,
+      child: Container(
+        height: 120,
+        width: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              'https://www.metaweather.com/static/img/weather/png/$image.png',
+              height: 50,
+              width: 50,
+            ),
+            Text('$temp° C'),
+            Text('$date'),
+          ],
+        ),
+      ),
     );
   }
 }
