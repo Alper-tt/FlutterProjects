@@ -1,9 +1,9 @@
-import 'package:anythings/call_back_and_provider/state_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'stateData.dart';
 
 void main() => runApp(ChangeNotifierProvider<StateData>(
-    create: (BuildContext context) => StateData(), child: MyApp()));
+    child: MyApp(), create: (BuildContext context) => StateData()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,20 +39,32 @@ class MyHomePage extends StatelessWidget {
 class SolWidgetA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String sehir = Provider.of<StateData>(context).sehir;
+    String sehir;
+    String ilce;
+    String mahalle;
     return Container(
         color: Colors.yellow,
-        child: Column(
-          children: [
-            Text(
-              'Sol Widget',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              'Sehir: $sehir',
-              style: TextStyle(fontSize: 20),
-            )
-          ],
+        child: Consumer<StateData>(
+          builder: (context, data, child) => Column(
+            children: [
+              Text(
+                'Sol Widget',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                'Sehir: ${data.sehir}',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                'ilce: ${data.ilce}',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                'mahalle: ${data.mahalle}',
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
         ));
   }
 }
@@ -111,7 +123,7 @@ class SagWidgetC extends StatelessWidget {
         ),
         TextField(onChanged: (input) {
           newCity(input);
-        }),
+        })
       ]),
     );
   }

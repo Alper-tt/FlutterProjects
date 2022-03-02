@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    getGifs('stupid');
+    getGifs('coder');
     super.initState();
   }
 
@@ -42,67 +42,65 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: Text('GIF'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: myController,
-                decoration: InputDecoration(
-                    hintText: 'Search a GIF...',
-                    hintStyle: TextStyle(color: Colors.white),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.redAccent)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.redAccent))),
-                style: TextStyle(color: Colors.white, fontSize: 25),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+            child: TextField(
+              textAlign: TextAlign.center,
+              controller: myController,
+              decoration: InputDecoration(
+                  hintText: 'Search a GIF...',
+                  hintStyle: TextStyle(color: Colors.white),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(color: Colors.redAccent)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(color: Colors.redAccent))),
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 5),
+            child: OutlineButton(
+              borderSide: BorderSide(color: Colors.redAccent),
+              onPressed: () {
+                getGifs(myController.text);
+              },
+              child: Icon(
+                Icons.search,
+                size: 40,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom:5),
-              child: OutlineButton(
-                borderSide: BorderSide(color: Colors.redAccent),
-                onPressed: () {
-                  getGifs(myController.text);
-                },
-                child: Icon(
-                  Icons.search,
-                  size: 40,
-                ),
-              ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.65,
+            child: ListView.separated(
+              physics: BouncingScrollPhysics(),
+              itemCount: gifUrls.length,
+              itemBuilder: (context, index) {
+                return gifUrls.isEmpty
+                    ? CircularProgressIndicator()
+                    : Container(
+                        child: Image(
+                        image: NetworkImage(
+                          gifUrls[index],
+                        ),
+                        fit: BoxFit.cover,
+                      ));
+              },
+              separatorBuilder: (BuildContext context, index) {
+                return Divider(
+                  height: 10,
+                  color: Colors.black,
+                );
+              },
             ),
-            
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: ListView.separated(
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return gifUrls.isEmpty
-                      ? CircularProgressIndicator()
-                      : Container(
-                          child: Image(
-                          image: NetworkImage(
-                            gifUrls[index],
-                          ),
-                          fit: BoxFit.cover,
-                        ));
-                },
-                separatorBuilder: (BuildContext context, index) {
-                  return Divider(
-                    height: 10,
-                    color: Colors.black,
-                  );
-                },
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
