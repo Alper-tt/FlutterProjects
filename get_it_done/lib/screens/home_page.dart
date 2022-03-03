@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get_it_done/models/items_data.dart';
 import 'package:get_it_done/widgets/item_card.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
-            'Get It Done',
-          ),
+          title: Text('Get It Done'),
         ),
         body: Center(
           child: Column(
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(
-                      '5 items',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    '${Provider.of<ItemData>(context).items.length} items',
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
               ),
               Expanded(
                 flex: 5,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: EdgeInsets.all(15.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -41,11 +37,20 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(15),
+                      padding: EdgeInsets.all(15),
                       child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (BuildContext context, _) {
-                          return ItemCard();
+                        itemCount: Provider.of<ItemData>(context).items.length,
+                        itemBuilder: (BuildContext context, i) {
+                          return ItemCard(
+                            title:
+                                Provider.of<ItemData>(context).items[i].title,
+                            isDone:
+                                Provider.of<ItemData>(context).items[i].isDone,
+                            toggleStatus: (_) {
+                              Provider.of<ItemData>(context, listen: false)
+                                  .toggleStatus(i);
+                            },
+                          );
                         },
                       ),
                     ),

@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
+  final String title;
+  final bool? isDone;
+  final Function(bool?) toggleStatus;
+
+  ItemCard({
+    required this.title,
+    this.isDone,
+    required this.toggleStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -9,8 +18,15 @@ class ItemCard extends StatelessWidget {
       shadowColor: Theme.of(context).primaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ListTile(
-        title: Text('Flutter Dökümanlarını Oku',style: TextStyle(color: Colors.black),),
-        trailing: Checkbox(onChanged: null, value: false,activeColor: Colors.green,),
+        title: Text(
+          title,
+          style: TextStyle(color: Colors.black),
+        ),
+        trailing: Checkbox(
+          onChanged: toggleStatus,
+          value: isDone,
+          activeColor: Colors.green,
+        ),
       ),
     );
   }
