@@ -5,9 +5,9 @@ import 'item.dart';
 class ItemData with ChangeNotifier {
   final List<Item> items = [
     Item(title: 'Peynir al'),
-    Item(title: 'Copu at'),
+    Item(title: 'Çöpü at'),
     Item(title: 'Fatura öde'),
-    Item(title: 'ekmek al'),
+    Item(title: 'Ekmek al'),
   ];
 
   void toggleStatus(int index) {
