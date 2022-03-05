@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get_it_done/models/color_theme_data.dart';
 import 'package:get_it_done/models/items_data.dart';
 import 'package:get_it_done/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider<ItemData>(create: (context) => ItemData(),
-  child: const MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ColorThemeData().createPrefObject();
+  await ItemData().createPrefObject();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<ItemData>(create: (context) => ItemData()),
+    ChangeNotifierProvider<ColorThemeData>(
+      create: (context) => ColorThemeData(),
+    )
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    Provider.of<ItemData>(context).loadItemsFromSharedPref();
+    Provider.of<ColorThemeData>(context).loadThemeFromSharedPref();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Colors.green,
-        scaffoldBackgroundColor: Colors.green,
-        appBarTheme: const AppBarTheme(color: Colors.green),
-        textTheme: const TextTheme(subtitle1: TextStyle(color: Colors.white),headline3: TextStyle(color: Colors.white)),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: Provider.of<ColorThemeData>(context).selectedThemeData,
       home: HomePage(),
     );
   }
