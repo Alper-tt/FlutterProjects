@@ -31,11 +31,11 @@ class ItemAdder extends StatelessWidget {
                         labelText: 'Add Item',
                         hintText: 'Type a TO DO...',
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green),
+                          borderSide: BorderSide(color: Theme.of(context).primaryColor),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green),
+                            borderSide: BorderSide(color: Theme.of(context).primaryColor),
                             borderRadius: BorderRadius.circular(30)))),
               ),
               FlatButton(

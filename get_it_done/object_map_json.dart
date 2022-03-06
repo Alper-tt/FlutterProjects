@@ -11,9 +11,6 @@ main() {
 
 
 
-
-
-
   itemAsMap = jsonDecode(itemAsJson);
   itemObject=Item.fromMap(itemAsMap);
 

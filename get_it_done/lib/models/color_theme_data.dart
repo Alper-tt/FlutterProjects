@@ -23,6 +23,7 @@ class ColorThemeData with ChangeNotifier {
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 
+
   bool _isGreen = true;
   static SharedPreferences? _sharedPref;
 
@@ -34,7 +35,7 @@ class ColorThemeData with ChangeNotifier {
 
   bool get isGreen => _isGreen;
 
-  ThemeData get selectedThemeData => _isGreen ? _greenTheme : _redTheme;
+  ThemeData get selectedThemeData => _isGreen? _greenTheme : _redTheme;
 
   Future<void> createPrefObject() async {
     _sharedPref = await SharedPreferences.getInstance();

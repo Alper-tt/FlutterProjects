@@ -3,6 +3,7 @@ import 'package:get_it_done/models/items_data.dart';
 import 'package:get_it_done/screens/settings.dart';
 import 'package:get_it_done/widgets/item_card.dart';
 import 'package:provider/provider.dart';
+import '../widgets/listView.dart';
 import 'item_adder.dart';
 
 class HomePage extends StatelessWidget {
@@ -40,22 +41,7 @@ class HomePage extends StatelessWidget {
                       child: Consumer<ItemData>(
                         builder: (context, itemData, child) => Align(
                           alignment: Alignment.topCenter,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            reverse: true,
-                            itemCount: itemData.items.length,
-                            itemBuilder: (BuildContext context, i) {
-                              return ItemCard(
-                                  title: itemData.items[i].title,
-                                  isDone: itemData.items[i].isDone,
-                                  toggleStatus: (_) {
-                                    itemData.toggleStatus(i);
-                                  },
-                                  deleteItem: (_) {
-                                    itemData.deleteItem(i);
-                                  });
-                            },
-                          ),
+                          child: listView(itemData),
                         ),
                       ),
                     ),
@@ -67,6 +53,7 @@ class HomePage extends StatelessWidget {
         ),
         floatingActionButton: buildFAB(context));
   }
+
 
   FloatingActionButton buildFAB(BuildContext context) {
     return FloatingActionButton(
