@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_done/models/items_data.dart';
 import 'package:get_it_done/screens/settings.dart';
-import 'package:get_it_done/widgets/item_card.dart';
 import 'package:provider/provider.dart';
 import '../widgets/listView.dart';
 import 'item_adder.dart';
@@ -53,7 +52,7 @@ class HomePage extends StatelessWidget {
         ),
         floatingActionButton: buildFAB(context));
   }
-
+  
 
   FloatingActionButton buildFAB(BuildContext context) {
     return FloatingActionButton(

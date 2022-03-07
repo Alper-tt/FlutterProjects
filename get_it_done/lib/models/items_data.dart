@@ -7,8 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'item.dart';
 
 class ItemData with ChangeNotifier {
-  final List<Item> _items = [
-  ];
+  final List<Item> _items = [];
 
   static SharedPreferences? _sharedPref;
   List<String> _itemsAsString = [];
@@ -31,6 +30,8 @@ class ItemData with ChangeNotifier {
     notifyListeners();
   }
 
+
+
   UnmodifiableListView<Item> get items => UnmodifiableListView(_items);
 
   Future<void> createPrefObject() async {
@@ -47,7 +48,7 @@ class ItemData with ChangeNotifier {
   }
 
   void loadItemsFromSharedPref() async {
-    List<String>? tempList = _sharedPref!.getStringList('toDoData')?? [];
+    List<String>? tempList = _sharedPref!.getStringList('toDoData') ?? [];
     _items.clear();
 
     for (var item in tempList) {
