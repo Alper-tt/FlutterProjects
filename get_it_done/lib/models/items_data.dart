@@ -10,7 +10,7 @@ class ItemData with ChangeNotifier {
   final List<Item> _items = [];
 
   static SharedPreferences? _sharedPref;
-  List<String> _itemsAsString = [];
+  final List<String> _itemsAsString = [];
 
   void toggleStatus(int index) {
     _items[index].toggleStatus();
@@ -30,7 +30,7 @@ class ItemData with ChangeNotifier {
     notifyListeners();
   }
 
-
+  
 
   UnmodifiableListView<Item> get items => UnmodifiableListView(_items);
 
