@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 
 class mySignInButton extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final Function onPressed;
   final Buttons buttonType;
   final String? text;
   final bool mini;
@@ -13,7 +12,7 @@ class mySignInButton extends StatelessWidget {
       {required this.onPressed,
       required this.buttonType,
       this.text,
-      this.mini=false});
+      this.mini = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class mySignInButton extends StatelessWidget {
       width: 250,
       child: SignInButton(
         buttonType,
-        onPressed: () {},
+        onPressed: onPressed,
         text: text,
         mini: mini,
       ),

@@ -1,21 +1,29 @@
-import 'package:firebase/views/sign_in_page.dart';
+import 'package:firebase/service/auth.dart';
+import 'package:firebase/views/email_sign_in_page.dart';
+import 'package:firebase/widgets/on_board.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
+    return Provider<Auth>(
+      create: (context) => Auth(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+        ),
+        home: OnBoardWidget(),
       ),
-      home: SignInPage(),
     );
   }
 }
