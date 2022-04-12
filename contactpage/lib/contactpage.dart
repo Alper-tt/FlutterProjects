@@ -44,6 +44,7 @@ class _BenimUygState extends State<BenimUyg> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.lightBlue[200],
         body: SafeArea(

@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_done/models/color_theme_data.dart';
 import 'package:get_it_done/models/items_data.dart';
-import 'package:get_it_done/widgets/item_card.dart';
 import 'package:provider/provider.dart';
-
 import 'screens/splash_screen.dart';
 
 void main() async {

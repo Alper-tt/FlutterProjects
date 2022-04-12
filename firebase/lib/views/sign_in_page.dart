@@ -1,6 +1,7 @@
 import 'package:firebase/service/auth.dart';
 import 'package:firebase/views/email_sign_in_page.dart';
 import 'package:firebase/widgets/mySignInButton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +24,23 @@ class _SignInPageState extends State<SignInPage> {
     setState(() {
       _isLoading = false;
     });
+  }
 
-    print(user?.uid);
+  Future<void> _signInWithGoogle() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      final user =
+          await Provider.of<Auth>(context, listen: false).signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      _showMyDialog("Something Went Wrong!", "${e.message}", 'Try Again');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -57,22 +73,71 @@ class _SignInPageState extends State<SignInPage> {
                       if (_isLoading) {
                         null;
                       } else {
-                        _signInAnonymously();
+                        try {
+                          _signInAnonymously();
+                        } on FirebaseAuthException catch (e) {
+                          _showMyDialog("Something Went Wrong", '${e.message}',
+                              'Try Again');
+                        }
                       }
                     },
                     text: "Sign in Anonymously")),
             SizedBox(height: 15),
             mySignInButton(
               buttonType: Buttons.Email,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=>EmailSignInPage()));
-                },
-                ),
+              onPressed: () {
+                if (_isLoading) {
+                  null;
+                } else {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EmailSignInPage()));
+                }
+              },
+            ),
             SizedBox(height: 15),
-            mySignInButton(buttonType: Buttons.GoogleDark, onPressed: () {}),
+            mySignInButton(
+              buttonType: Buttons.GoogleDark,
+              onPressed: () {
+                if (_isLoading) {
+                  null;
+                } else {
+                  _signInWithGoogle();
+                }
+              },
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(
+      String title, String content, String buttonText) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(content),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text(buttonText),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
