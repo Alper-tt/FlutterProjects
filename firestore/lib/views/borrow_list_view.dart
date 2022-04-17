@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firestore/models/book_model.dart';
 import 'package:firestore/models/borrow_info_model.dart';
 import 'package:firestore/services/calculator.dart';
 import 'package:firestore/views/borrow_list_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class BorrowListView extends StatefulWidget {
@@ -20,9 +24,18 @@ class _BorrowListViewState extends State<BorrowListView> {
   @override
   Widget build(BuildContext context) {
     List<BorrowInfo> borrowList = widget.book.borrows as List<BorrowInfo>;
+
     return ChangeNotifierProvider(
       create: ((context) => BorrowListViewModel()),
       builder: (context, _) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            FirebaseStorage _storage = FirebaseStorage.instance;
+            Reference refPhotos = _storage.ref().child('photos');
+            var photoUrl = await refPhotos.child('rte.jpeg').getDownloadURL();
+            print(photoUrl);
+          },
+        ),
         appBar: AppBar(
           title: Text('${widget.book.bookName} Borrowed List'),
           centerTitle: true,
@@ -41,7 +54,10 @@ class _BorrowListViewState extends State<BorrowListView> {
                               '${borrowList[index].name} ${borrowList[index].surname}'),
                           leading: CircleAvatar(
                             radius: 25,
-                            backgroundImage: AssetImage("assets/rte.jpeg"),
+                            backgroundImage:
+                                (NetworkImage(borrowList[index].photoUrl!)),
+
+                            //backgroundImage: AssetImage("assets/rte.jpeg"),
                           ),
                         ),
                       );
@@ -100,6 +116,32 @@ class _BorrowFormState extends State<BorrowForm> {
   DateTime? rtrnDate;
   final _formkey = GlobalKey<FormState>();
 
+  File? _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera,imageQuality: 50);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        uploadImageToStorage(_image as File);
+      } else {
+        print("no photo selected");
+      }
+    });
+  }
+
+  Future<void> uploadImageToStorage(File image) async {
+    String path = "${DateTime.now().millisecondsSinceEpoch}.jpg";
+    TaskSnapshot uploadTask = await FirebaseStorage.instance
+        .ref()
+        .child('photos')
+        .child(path)
+        .putFile(_image as File);
+    String uploadedImageUrl = await uploadTask.ref.getDownloadURL();
+    print(uploadedImageUrl);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -133,13 +175,17 @@ class _BorrowFormState extends State<BorrowForm> {
                       child: Stack(
                         children: [
                           CircleAvatar(
-                              backgroundImage: AssetImage("assets/rte.jpeg"),
+                              backgroundImage: (_image == null)
+                                  ? AssetImage("assets/rte.jpeg")
+                                  : FileImage(_image!) as ImageProvider,
                               radius: 40),
                           Positioned(
                             bottom: -5,
                             right: -10,
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                getImage();
+                              },
                               icon: Icon(
                                 Icons.photo_camera_rounded,
                                 color: Colors.grey.shade100,

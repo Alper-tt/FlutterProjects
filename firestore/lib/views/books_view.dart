@@ -35,7 +35,7 @@ class _CrudPageState extends State<BooksView> {
                 builder: (context, asyncSnapshot) {
                   if (asyncSnapshot.hasError) {
                     return Center(
-                      child: Text("Bir hata oluştu"),
+                      child: Text("Error Occured !!!"),
                     );
                   } else {
                     if (!asyncSnapshot.hasData) {
