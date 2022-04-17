@@ -16,6 +16,7 @@ class AddBookViewModel with ChangeNotifier {
       bookName: bookName,
       authorName: authorName,
       publishDate: Calculator.datetimeToTimeStamp(publishDate),
+      borrows: [],
     );
     await _dataBase.setBookData(
         referencePath: _collectionPath, bookAsMap: newBook.toMap());

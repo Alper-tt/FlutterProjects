@@ -34,7 +34,7 @@ class _UpdateViewState extends State<UpdateBookView> {
     bookCtr.text = widget.book.bookName;
     authorCtr.text = widget.book.authorName;
     publishCtr.text = Calculator.dateTimeToString(
-        Calculator.datetimeFromTimestamp(widget.book.publishDate!));
+        Calculator.datetimeFromTimestamp(widget.book.publishDate));
 
     return ChangeNotifierProvider<UpdateBookViewModel>(
       create: (context) => UpdateBookViewModel(),
@@ -111,7 +111,7 @@ class _UpdateViewState extends State<UpdateBookView> {
                         await context.read<UpdateBookViewModel>().editBook(
                             bookName: bookCtr.text,
                             authorName: authorCtr.text,
-                            publishDate: _selectedDate?? Calculator.datetimeFromTimestamp(widget.book.publishDate!),
+                            publishDate: _selectedDate?? Calculator.datetimeFromTimestamp(widget.book.publishDate),
                             book: widget.book);
                         Navigator.pop(context);
                       }

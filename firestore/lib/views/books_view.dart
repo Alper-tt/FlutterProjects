@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore/views/add_book_view.dart';
 import 'package:firestore/views/books_view_model.dart';
+import 'package:firestore/views/borrow_list_view.dart';
 import 'package:firestore/views/update_book_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 import '../models/book_model.dart';
@@ -23,19 +24,11 @@ class _CrudPageState extends State<BooksView> {
       builder: (context, child) => Scaffold(
         appBar: AppBar(
           title: Text("BOOK LİST"),
+          centerTitle: true,
         ),
         body: Center(
           child: Column(
             children: [
-              Text(
-                "Veriler",
-                style: TextStyle(fontSize: 20),
-              ),
-              Divider(
-                thickness: 10,
-                height: 50,
-                color: Colors.blue,
-              ),
               StreamBuilder<List<Book>>(
                 stream: Provider.of<BooksViewModel>(context, listen: false)
                     .getBookList(),
@@ -52,51 +45,7 @@ class _CrudPageState extends State<BooksView> {
                     } else {
                       List<Book>? booksList = asyncSnapshot.data;
 
-                      return Flexible(
-                        child: ListView.builder(
-                          itemCount: booksList!.length,
-                          itemBuilder: (context, i) {
-                            return Dismissible(
-                              onDismissed: (_) async {
-                                await Provider.of<BooksViewModel>(context,
-                                        listen: false)
-                                    .deleteBook(booksList[i]);
-                              },
-                              direction: DismissDirection.startToEnd,
-                              background: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                ),
-                                color: Colors.redAccent,
-                              ),
-                              key: UniqueKey(),
-                              child: Card(
-                                child: ListTile(
-                                  trailing: IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => UpdateBookView(
-                                            book: booksList[i],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  title: Text(
-                                    booksList[i].bookName,
-                                  ),
-                                  subtitle: Text(booksList[i].authorName),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
+                      return BuildListView(booksList: booksList);
                     }
                   }
                 },
@@ -111,6 +60,131 @@ class _CrudPageState extends State<BooksView> {
           },
           child: Icon(Icons.add),
         ),
+      ),
+    );
+  }
+}
+
+class BuildListView extends StatefulWidget {
+  const BuildListView({
+    Key? key,
+    required this.booksList,
+  }) : super(key: key);
+
+  final List<Book>? booksList;
+
+  @override
+  State<BuildListView> createState() => _BuildListViewState();
+}
+
+class _BuildListViewState extends State<BuildListView> {
+  bool isFiltering = false;
+  List<Book>? filteredList;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Book>? fullList = widget.booksList;
+    return Flexible(
+      child: Column(
+        children: [
+          TextField(
+              onChanged: (query) {
+                if (query.isNotEmpty) {
+                  isFiltering = true;
+
+                  setState(() {
+                    filteredList = fullList
+                        ?.where((book) => book.bookName
+                            .toLowerCase()
+                            .contains(query.toLowerCase()))
+                        .toList();
+                  });
+                } else {
+                  WidgetsBinding.instance!.focusManager.primaryFocus!.unfocus();
+                  setState(() {
+                    isFiltering = false;
+                  });
+                }
+              },
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6)),
+                  prefixIcon: Icon(Icons.search),
+                  hintText: 'Search...')),
+          Flexible(
+            child: ListView.builder(
+              itemCount: isFiltering ? filteredList?.length : fullList?.length,
+              itemBuilder: (context, i) {
+                var list = isFiltering ? filteredList : fullList;
+                return Slidable(
+                  key: UniqueKey(),
+                  startActionPane: ActionPane(
+                    extentRatio: 0.37,
+                    motion: DrawerMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (_) async {
+                          setState(() async {
+                            await Provider.of<BooksViewModel>(context,
+                                    listen: false)
+                                .deleteBook(list![i]);
+                          });
+                        },
+                        backgroundColor: Colors.red,
+                        icon: Icons.delete,
+                        label: "Delete",
+                      ),
+                      SlidableAction(
+                        onPressed: (_) async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UpdateBookView(
+                                book: list![i],
+                              ),
+                            ),
+                          );
+                        },
+                        backgroundColor: Colors.purple,
+                        foregroundColor: Colors.white,
+                        icon: Icons.edit,
+                        label: "Edit",
+                      ),
+                    ],
+                  ),
+                  endActionPane: ActionPane(
+                      extentRatio: 0.4,
+                      motion: DrawerMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (_) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BorrowListView(
+                                  book: list![i],
+                                ),
+                              ),
+                            );
+                          },
+                          backgroundColor: Colors.blueAccent,
+                          icon: Icons.perm_identity_outlined,
+                          label: "Borrowed List",
+                        ),
+                      ]),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(
+                        list![i].bookName,
+                      ),
+                      subtitle: Text(list[i].authorName),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
