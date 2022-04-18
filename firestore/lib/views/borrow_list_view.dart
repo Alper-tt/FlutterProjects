@@ -28,14 +28,6 @@ class _BorrowListViewState extends State<BorrowListView> {
     return ChangeNotifierProvider(
       create: ((context) => BorrowListViewModel()),
       builder: (context, _) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            FirebaseStorage _storage = FirebaseStorage.instance;
-            Reference refPhotos = _storage.ref().child('photos');
-            var photoUrl = await refPhotos.child('rte.jpeg').getDownloadURL();
-            print(photoUrl);
-          },
-        ),
         appBar: AppBar(
           title: Text('${widget.book.bookName} Borrowed List'),
           centerTitle: true,
@@ -69,10 +61,17 @@ class _BorrowListViewState extends State<BorrowListView> {
                   onTap: () async {
                     BorrowInfo? newBorrowInfo =
                         await showModalBottomSheet<BorrowInfo>(
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
                             builder: (BuildContext context) {
-                              return BorrowForm();
+                              return WillPopScope(
+                                  onWillPop: () async {
+                                    return false;
+                                  },
+                                  child: BorrowForm());
                             },
                             context: context);
+
                     if (newBorrowInfo != null) {
                       setState(() {
                         borrowList.add(newBorrowInfo);
@@ -115,31 +114,34 @@ class _BorrowFormState extends State<BorrowForm> {
   DateTime? brwDate;
   DateTime? rtrnDate;
   final _formkey = GlobalKey<FormState>();
-
+  String _photoUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png';
   File? _image;
   final picker = ImagePicker();
 
   Future getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera,imageQuality: 50);
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.camera, imageQuality: 50);
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        uploadImageToStorage(_image as File);
       } else {
-        print("no photo selected");
       }
     });
+    if (pickedFile != null) {
+      _photoUrl = await uploadImageToStorage(_image as File);
+    }
   }
 
-  Future<void> uploadImageToStorage(File image) async {
+  Future<String> uploadImageToStorage(File image) async {
     String path = "${DateTime.now().millisecondsSinceEpoch}.jpg";
     TaskSnapshot uploadTask = await FirebaseStorage.instance
         .ref()
         .child('photos')
         .child(path)
         .putFile(_image as File);
-    String uploadedImageUrl = await uploadTask.ref.getDownloadURL();
-    print(uploadedImageUrl);
+    _photoUrl = await uploadTask.ref.getDownloadURL();
+    return _photoUrl;
   }
 
   @override
@@ -158,12 +160,14 @@ class _BorrowFormState extends State<BorrowForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[300],
-      child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Container(
-          child: Form(
+    return ChangeNotifierProvider(
+      create: (context) => BorrowListViewModel(),
+      builder: (context, _) => Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+            color: Colors.grey[300]),
+        child: Form(
             key: _formkey,
             child: Column(
               children: [
@@ -285,25 +289,45 @@ class _BorrowFormState extends State<BorrowForm> {
                 SizedBox(
                   height: 10,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        BorrowInfo newBorrowInfo = BorrowInfo(
-                            name: nameCtr.text,
-                            surname: surnameCtr.text,
-                            borrowDate:
-                                Calculator.datetimeToTimeStamp(brwDate!),
-                            returnDate:
-                                Calculator.datetimeToTimeStamp(rtrnDate!));
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            BorrowInfo newBorrowInfo = BorrowInfo(
+                                name: nameCtr.text,
+                                surname: surnameCtr.text,
+                                borrowDate:
+                                    Calculator.datetimeToTimeStamp(brwDate!),
+                                returnDate:
+                                    Calculator.datetimeToTimeStamp(rtrnDate!),
+                                photoUrl: _photoUrl ?? 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png');
 
-                        Navigator.pop(context, newBorrowInfo);
-                      }
-                    },
-                    child: Text("Add Borrow"))
+
+                            Navigator.pop(context, newBorrowInfo);
+                          }
+                        },
+                        child: Text("Add Borrow"),
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red)),
+                        onPressed: () {
+                          if (_photoUrl != null) {
+                            context
+                                .read<BorrowListViewModel>()
+                                .deletePhoto(_photoUrl);
+                          }
+
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cancel"),
+                      ),
+                    ])
               ],
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }

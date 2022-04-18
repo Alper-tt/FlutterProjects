@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firestore/models/borrow_info_model.dart';
 import 'package:firestore/services/database.dart';
 import 'package:flutter/material.dart';
@@ -17,5 +18,10 @@ class BorrowListViewModel with ChangeNotifier {
 
     await _dataBase.setBookData(
         referencePath: collectionPath, bookAsMap: newBook.toMap());
+  }
+
+  Future<void> deletePhoto(String photoUrl) async {
+    Reference photoRef = FirebaseStorage.instance.refFromURL(photoUrl);
+    await photoRef.delete();
   }
 }
