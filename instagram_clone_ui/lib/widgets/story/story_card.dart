@@ -14,10 +14,10 @@ class StoryCard extends StatelessWidget {
         Stack(children: <Widget>[
           CircleAvatar(
             radius: 39,
-            backgroundImage: AssetImage("assets/story_bg.png"),
+            backgroundImage: AssetImage("assets/story_photos/story_bg.png"),
             child: CircleAvatar(
               radius: 37,
-              backgroundImage: AssetImage("assets/white_bg.png"),
+              backgroundImage: AssetImage("assets/story_photos/white_bg.png"),
               child: CircleAvatar(
                 radius: 35,
                 backgroundImage: AssetImage(assetimage),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_ui/Screens/HomePage/home_page.dart';
-import 'package:instagram_clone_ui/Screens/HomePage/story_profile.dart';
+import 'package:instagram_clone_ui/feed/stories/stories.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(builder: (context, child) => MyApp(),providers: [
+    ChangeNotifierProvider<Story>(create: (context) => Story())
+  ]));
 }
 
 class MyApp extends StatelessWidget {

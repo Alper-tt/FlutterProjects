@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_ui/widgets/story/my_story_card.dart';
-import 'package:instagram_clone_ui/widgets/story/story_card.dart';
+import 'package:instagram_clone_ui/feed/stories/stories.dart';
+import 'package:instagram_clone_ui/widgets/posts/home_posts.dart';
+import 'package:provider/provider.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -10,23 +11,9 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-  List<Widget> storyList = [
-    MyStoryCard(
-        name: "Your Story",
-        assetimage: "assets/myprofile.png",
-        addstory: "assets/addstory.png"),
-    StoryCard(name: "1ibrahimsana", assetimage: "assets/ibrahim.png"),
-    StoryCard(name: "kayaaaliican", assetimage: "assets/alican.png"),
-    StoryCard(name: "arda.t.t", assetimage: "assets/arda.png"),
-    StoryCard(name: "berk.ssqw", assetimage: "assets/berk.png"),
-    StoryCard(name: "burcusanaa", assetimage: "assets/burcu.png"),
-    StoryCard(name: "brtsana", assetimage: "assets/berat.png"),
-    StoryCard(name: "kavvasoglujo...", assetimage: "assets/yusuf.png"),
-    StoryCard(name: "erkeklerin...", assetimage: "assets/erkek.png"),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Widget> storyList = Provider.of<Story>(context).storyList;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -49,6 +36,19 @@ class _PostPageState extends State<PostPage> {
               ),
             ),
           ),
+          Column(
+            children: [
+              Posts(
+                  personProfilePhoto: "assets/story_photos/myprofile.png",
+                  personName: "Alper.t.t",
+                  location: "Netherlands",
+                  personPost: "assets/post_photos/mypost.png",
+                  numberOfLikes: "8235",
+                  timeText: "25 minutes ago",
+                  personalComment: "New country; new life 🌆",
+                  personalCommentIcon: "assets/story_photos/myprofile.png")
+            ],
+          )
         ],
       ),
     );

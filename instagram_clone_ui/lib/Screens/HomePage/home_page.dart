@@ -27,8 +27,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: _widget.elementAt(_selectedIndex),
-
-
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -59,7 +57,8 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 radius: 13,
-                backgroundImage: AssetImage("assets/myprofile.png"),
+                backgroundImage:
+                    AssetImage("assets/story_photos/myprofile.png"),
                 backgroundColor: Colors.black,
               ),
               label: "Profile")

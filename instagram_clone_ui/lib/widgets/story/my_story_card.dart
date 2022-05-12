@@ -20,7 +20,7 @@ class MyStoryCard extends StatelessWidget {
           children: <Widget>[
             CircleAvatar(
               radius: 37,
-              backgroundImage: AssetImage("assets/white_bg.png"),
+              backgroundImage: AssetImage("assets/story_photos/white_bg.png"),
               child: CircleAvatar(
                 radius: 35,
                 backgroundImage: AssetImage(assetimage),
