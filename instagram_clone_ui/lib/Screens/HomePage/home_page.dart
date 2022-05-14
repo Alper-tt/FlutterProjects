@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_ui/Screens/HomePage/story_profile.dart';
+import 'package:instagram_clone_ui/Screens/ReelsPage/reels_page.dart';
+import 'package:instagram_clone_ui/Screens/SearchPage/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,6 +16,9 @@ class _HomePageState extends State<HomePage> {
 
   static final List<Widget> _widget = [
     const StoryProfile(),
+    SearchPage(),
+    ReelsPage(),
+    
   ];
 
   void _onTap(int index) {

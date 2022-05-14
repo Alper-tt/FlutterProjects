@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_ui/feed/posts/posts.dart';
 import 'package:instagram_clone_ui/feed/stories/stories.dart';
-import 'package:instagram_clone_ui/widgets/posts/home_posts.dart';
 import 'package:provider/provider.dart';
 
 class PostPage extends StatefulWidget {
@@ -14,7 +14,10 @@ class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> storyList = Provider.of<Story>(context).storyList;
+    List<Widget> postList = Provider.of<Posts>(context).postList;
+
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: [
           Divider(),
@@ -36,18 +39,9 @@ class _PostPageState extends State<PostPage> {
               ),
             ),
           ),
+          Divider(),
           Column(
-            children: [
-              Posts(
-                  personProfilePhoto: "assets/story_photos/myprofile.png",
-                  personName: "Alper.t.t",
-                  location: "Netherlands",
-                  personPost: "assets/post_photos/mypost.png",
-                  numberOfLikes: "8235",
-                  timeText: "25 minutes ago",
-                  personalComment: "New country; new life 🌆",
-                  personalCommentIcon: "assets/story_photos/myprofile.png")
-            ],
+            children: postList,
           )
         ],
       ),
