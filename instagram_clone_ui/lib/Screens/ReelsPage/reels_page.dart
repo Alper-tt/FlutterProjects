@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_ui/feed/reels/reels.dart';
-import 'package:instagram_clone_ui/model/reels_videos.dart';
 import 'package:instagram_clone_ui/widgets/reels/video_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +18,11 @@ class _ReelsPageState extends State<ReelsPage> {
     return Scaffold(
         body: PageView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: reelVideos.length,
+            itemCount: 5,
             itemBuilder: (context, index) {
               return SizedBox(
                   child: Stack(children: [
-                VideoWidget(videoUrl: reelVideos[index].video),
+                VideoWidget(videoUrl: "assets/reels_videos/reel_${index+1}.mp4"),
                 reelsList[index]
               ]));
             }));

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone_ui/Screens/HomePage/story_profile.dart';
+import 'package:instagram_clone_ui/Screens/ProfilePage/my_profile.dart';
 import 'package:instagram_clone_ui/Screens/ReelsPage/reels_page.dart';
 import 'package:instagram_clone_ui/Screens/SearchPage/search_page.dart';
+import 'package:instagram_clone_ui/Screens/StorePage/store_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +20,8 @@ class _HomePageState extends State<HomePage> {
     const StoryProfile(),
     SearchPage(),
     ReelsPage(),
-    
+    StorePage(),
+    MyProfilePage()
   ];
 
   void _onTap(int index) {
@@ -60,6 +63,7 @@ class _HomePageState extends State<HomePage> {
               ),
               label: "Store"),
           BottomNavigationBarItem(
+            
               icon: CircleAvatar(
                 radius: 13,
                 backgroundImage:

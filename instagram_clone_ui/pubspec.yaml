@@ -69,6 +69,8 @@ flutter:
     - assets/post_photos/
     - assets/search_page_contents/
     - assets/reels_videos/
+    - assets/store_page_content/
+    - assets/my_posts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
