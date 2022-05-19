@@ -4,6 +4,7 @@ import 'package:instagram_clone_ui/feed/posts/posts.dart';
 import 'package:instagram_clone_ui/feed/reels/reels.dart';
 import 'package:instagram_clone_ui/feed/stories/stories.dart';
 import 'package:provider/provider.dart';
+import 'package:splash_screen_view/SplashScreenView.dart';
 
 void main() {
   runApp(MultiProvider(builder: (context, child) => MyApp(), providers: [
@@ -20,7 +21,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreenView(
+        imageSrc: "assets/splashscreen.png",
+        imageSize: 760,
+        navigateRoute: HomePage(),
+        duration: 0,
+        backgroundColor: Colors.black,
+        pageRouteTransition: PageRouteTransition.SlideTransition,
+      ),
     );
   }
 }

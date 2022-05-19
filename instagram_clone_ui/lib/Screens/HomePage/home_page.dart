@@ -63,7 +63,6 @@ class _HomePageState extends State<HomePage> {
               ),
               label: "Store"),
           BottomNavigationBarItem(
-            
               icon: CircleAvatar(
                 radius: 13,
                 backgroundImage:
