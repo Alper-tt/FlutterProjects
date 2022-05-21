@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:instagram_clone_ui/widgets/SearchBar/search_bar.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -21,18 +22,12 @@ class _SearchPageState extends State<SearchPage> {
               toolbarHeight: 60,
               elevation: 0,
               backgroundColor: Colors.white,
-              bottom: PreferredSize(
-                  child: Text(''), preferredSize: Size.fromHeight(10)),
               title: Container(
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     border: Border.all(color: Colors.grey.shade200),
                     borderRadius: BorderRadius.circular(10)),
-                child: CupertinoSearchTextField(
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(10)),
-                ),
+                child: SearchBar(title: "Search",)
               ),
             ),
             SliverToBoxAdapter(

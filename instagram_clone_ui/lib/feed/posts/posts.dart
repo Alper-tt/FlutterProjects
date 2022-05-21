@@ -6,13 +6,13 @@ class Posts with ChangeNotifier {
   List<Widget> postList = [
     Post(
         personProfilePhoto: "assets/story_photos/myprofile.png",
-        personName: "Alper.t.t",
+        personName: "alper.t.t",
         location: "Netherlands",
         personPost: "assets/post_photos/mypost.png",
         numberOfLikes: "142",
         timeText: "25 minutes ago",
         personalComment:
-            "Everyone gonna die and no one is gonna remember\n you, so fuck it!",
+            '"Everyone gonna die and no one is gonna remember you, so fuck it!"',
         personalCommentIcon: "assets/story_photos/myprofile.png"),
     Post(
         personProfilePhoto: "assets/story_photos/ibrahim.png",
@@ -67,7 +67,7 @@ class Posts with ChangeNotifier {
         numberOfLikes: "351",
         timeText: "1 day ago",
         personalComment:
-            "Raks ediyor isyanla çocuklar,\nÇocukların isyan çığlıkları,\nBastırıyor soytarıların sesini.",
+            '"Raks ediyor isyanla çocuklar,\nÇocukların isyan çığlıkları,\nBastırıyor soytarıların sesini."',
         personalCommentIcon: "assets/story_photos/yusufpost.png"),
   ];
 }

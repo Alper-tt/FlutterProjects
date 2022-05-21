@@ -19,7 +19,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   void initState() {
     super.initState();
     _videoPlayerController = VideoPlayerController.asset(videoUrl)
-      ..initialize().then((value) {
+      ..initialize().then((_) {
         _videoPlayerController!.play();
         setState(() {});
       });

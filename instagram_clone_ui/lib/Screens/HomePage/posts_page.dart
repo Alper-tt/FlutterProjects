@@ -20,8 +20,8 @@ class _PostPageState extends State<PostPage> {
       physics: BouncingScrollPhysics(),
       child: Column(
         children: [
-          Divider(),
           Container(
+            color: Colors.white,
             height: MediaQuery.of(context).size.height * 0.14,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -39,7 +39,6 @@ class _PostPageState extends State<PostPage> {
               ),
             ),
           ),
-          Divider(),
           Column(
             children: postList,
           )
