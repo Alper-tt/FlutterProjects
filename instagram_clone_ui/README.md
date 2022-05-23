@@ -1,16 +1,29 @@
-# instagram_clone_ui
+# Instagram UI
 
-A new Flutter project.
+Instagram UI clone application.
 
-## Getting Started
+## Packages I used in this project.
 
-This project is a starting point for a Flutter application.
+· Staggered Grid View : https://pub.dev/packages/flutter_staggered_grid_view
+· Sliver Header Delegate : https://pub.dev/packages/sliver_header_delegate
+· Video Player : https://pub.dev/packages/video_player
+· Flutter SVG : https://pub.dev/packages/flutter_svg
+· Page Transition : https://pub.dev/packages/page_transition
+· Provider : https://pub.dev/packages/provider
+· Splash Screen : https://pub.dev/packages/splash_screen_view
 
-A few resources to get you started if this is your first Flutter project:
+# ScreenShots from app
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Splash Screen
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Home Page
+
+## DM Page
+
+## Search Page
+
+## Reels Page
+
+## Store Page
+
+## Profile Page
