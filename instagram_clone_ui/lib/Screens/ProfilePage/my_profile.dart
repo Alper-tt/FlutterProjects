@@ -17,9 +17,15 @@ class MyProfilePage extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: Text(
-            "alper.t.t",
-            style: TextStyle(color: Colors.black),
+          title: Row(
+            children: [
+              Icon(Icons.lock_outline,color: Colors.grey.shade500,size: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text("alper.t.t",style: TextStyle(color: Colors.black),),
+              ),
+              Icon(Icons.keyboard_arrow_down,color: Colors.black,)
+            ],
           ),
           actions: [
             SvgPicture.asset(

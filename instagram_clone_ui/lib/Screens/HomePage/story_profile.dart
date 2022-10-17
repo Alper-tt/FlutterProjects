@@ -17,17 +17,15 @@ class _HomePageState extends State<StoryProfile> {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onHorizontalDragEnd: (_) {
-        setState(() {
           setState(() {
             Navigator.push(
                 context,
                 PageTransition(
                     child: MessagePage(),
                     type: PageTransitionType.rightToLeftJoined,
-                    duration: Duration(milliseconds: 200),
                     childCurrent: this.widget));
           });
-        });
+        
       },
       child: Scaffold(
         backgroundColor: Colors.white,

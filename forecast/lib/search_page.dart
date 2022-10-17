@@ -20,7 +20,7 @@ class _SearchPageState extends State<SearchPage> {
           return AlertDialog(
             title: Text('"${myController.text}" ==> INVALID City!!!'),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text("Try again"),
                 onPressed: () {
                   setState(() {});
@@ -66,7 +66,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              FlatButton(
+              TextButton(
                   onPressed: () async {
                     var response = await http.get(Uri.parse(
                         'https://www.metaweather.com/api/location/search/?query=${myController.text}'));

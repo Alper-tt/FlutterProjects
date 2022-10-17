@@ -25,7 +25,7 @@ class Posts with ChangeNotifier {
         personalCommentIcon: "assets/story_photos/ibrahim.png"),
     Post(
         personProfilePhoto: "assets/story_photos/arda.png",
-        personName: "Arda.t.t",
+        personName: "arda.t.t",
         location: "Heybeli Ada",
         personPost: "assets/post_photos/ardapost.png",
         numberOfLikes: "158",

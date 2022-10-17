@@ -41,7 +41,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
             title: new Text("Bravo test bitti!!!"),
             actions: <Widget>[
               // usually buttons at the bottom of the dialog
-              new FlatButton(
+              new TextButton(
                 child: new Text("Başa Dön"),
                 onPressed: () {
                   setState(() {
