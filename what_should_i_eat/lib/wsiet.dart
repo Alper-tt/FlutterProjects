@@ -76,9 +76,7 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: FlatButton(
-                  highlightColor: Colors.white,
-                  splashColor: Colors.white,
+              child: ElevatedButton(
                   onPressed: yemekleriYenile,
                   child: Image.asset('assets/corba_$corbaNo.jpg')),
             ),
@@ -97,9 +95,7 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: FlatButton(
-                  highlightColor: Colors.white,
-                  splashColor: Colors.white,
+              child: ElevatedButton(
                   onPressed: yemekleriYenile,
                   child: Image.asset('assets/yemek_$yemekNo.jpg')),
             ),
@@ -118,9 +114,7 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: FlatButton(
-                  highlightColor: Colors.white,
-                  splashColor: Colors.white,
+              child: ElevatedButton(
                   onPressed: yemekleriYenile,
                   child: Image.asset('assets/tatli_$tatliNo.jpg')),
             ),
