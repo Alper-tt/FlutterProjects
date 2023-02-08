@@ -40,7 +40,7 @@ class _uploadPageState extends State<uploadPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FloatingActionButton(onPressed: () async {
-              await pickImage(ImageSource.gallery);
+              await pickImage(ImageSource.camera);
               final response = await cloudinary.upload(
                   file: _image?.path,
                   fileBytes: _image?.readAsBytesSync(),

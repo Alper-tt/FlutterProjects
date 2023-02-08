@@ -28,7 +28,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Container(child: Image.network())],
+          children: <Widget>[
+            Container(
+                child: Image.network(
+                    "https://res.cloudinary.com/dtjfek0u2/image/upload/v1675874752/some-name.jpg"))
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
