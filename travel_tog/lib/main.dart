@@ -1,4 +1,3 @@
-import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_tog/uploadPage.dart';
 
@@ -37,11 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                child: Image.network(
-                    "https://res.cloudinary.com/dtjfek0u2/image/upload/v1675874752/some-name.jpg"))
-          ],
+          children: <Widget>[Container(child: Image.network("https://res.cloudinary.com/dtjfek0u2/image/upload/v1675940894/some-name.jpg"))],
         ),
       ),
       floatingActionButton: FloatingActionButton(
