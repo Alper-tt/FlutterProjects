@@ -1,7 +1,8 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
+import 'package:travel_tog_ui/Pages/detail_page.dart';
+import 'package:travel_tog_ui/Widgets/image_slider.dart';
 import 'package:travel_tog_ui/Widgets/linear_rate_bar.dart';
 import 'package:travel_tog_ui/Constants.dart' as constants;
 
@@ -12,15 +13,14 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showBottomSheet(
+        showModalBottomSheet(
             context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(50))),
             builder: (context) {
-              return Container(
-                height: 300,
-                width: 300,
-                color: Colors.red,
-                child: Icon(Icons.abc),
-              );
+              return DetailPage();
             });
       },
       child: Column(
@@ -56,7 +56,7 @@ class PostWidget extends StatelessWidget {
                     ),
                     LinearRateBar(
                       icon: Icons.fastfood_rounded,
-                      rate: 0.7,
+                      rate: 0.5,
                     ),
                     LinearRateBar(
                       icon: Icons.hotel_rounded,
@@ -92,24 +92,7 @@ class PostWidget extends StatelessWidget {
                       ),
                       height: 200,
                       width: 200,
-                      child: CarouselSlider(
-                        items: [
-                          Image.asset("assets/images/1.png",
-                              filterQuality: FilterQuality.high),
-                          Image.asset("assets/images/2.png",
-                              filterQuality: FilterQuality.high),
-                          Image.asset("assets/images/3.png",
-                              filterQuality: FilterQuality.high),
-                          Image.asset("assets/images/4.png",
-                              filterQuality: FilterQuality.high),
-                        ],
-                        options: CarouselOptions(
-                          pauseAutoPlayInFiniteScroll: false,
-                          viewportFraction: 0.8,
-                          aspectRatio: 10 / 10,
-                          autoPlay: true,
-                        ),
-                      ),
+                      child: image_slider(),
                     ),
                   ],
                 ),
