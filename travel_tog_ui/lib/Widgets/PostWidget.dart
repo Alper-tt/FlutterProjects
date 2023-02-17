@@ -14,6 +14,7 @@ class PostWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
+          elevation: 5,
             context: context,
             isScrollControlled: true,
             useSafeArea: true,

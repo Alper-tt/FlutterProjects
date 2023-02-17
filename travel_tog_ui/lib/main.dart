@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_icons/flutter_animated_icons.dart';
-import 'package:travel_tog_ui/Pages/home_page.dart';
 import 'package:travel_tog_ui/Pages/splash.dart';
 
 void main() {
@@ -21,7 +19,6 @@ class _TravelTogUIMainState extends State<TravelTogUIMain> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color.fromRGBO(217, 217, 217, 100),
-        appBar: AppBar(),
         body: const MyWidget(),
       ),
     );

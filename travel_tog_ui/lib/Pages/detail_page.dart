@@ -1,12 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:travel_tog_ui/Widgets/image_slider.dart';
-import 'package:travel_tog_ui/Widgets/linear_rate_bar.dart';
 
 import '../Widgets/PropertiesListTile.dart';
 
@@ -21,6 +16,7 @@ class DetailPage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
           color: Color.fromRGBO(0, 0, 0, 245)),
       child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -68,12 +64,24 @@ class DetailPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20),
               child: Column(
                 children: [
-                  PropertiesListTile(text: "Food"),
-                  PropertiesListTile(text: "Staying"),
-                  PropertiesListTile(text: "Activities"),
-                  PropertiesListTile(text: "Transportation"),
-                  PropertiesListTile(text: "Nature"),
-                  PropertiesListTile(text: "Pricing"),
+                  PropertiesListTile(text: "Food", rate: 4),
+                  PropertiesListTile(
+                    text: "Staying",
+                    rate: 2,
+                  ),
+                  PropertiesListTile(text: "Activities", rate: 4),
+                  PropertiesListTile(
+                    text: "Transportation",
+                    rate: 3,
+                  ),
+                  PropertiesListTile(
+                    text: "Nature",
+                    rate: 3,
+                  ),
+                  PropertiesListTile(
+                    text: "Pricing",
+                    rate: 4,
+                  ),
                 ],
               ),
             )

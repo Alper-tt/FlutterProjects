@@ -6,9 +6,11 @@ class PropertiesListTile extends StatelessWidget {
   const PropertiesListTile({
     super.key,
     required this.text,
+    required this.rate,
   });
 
   final String text;
+  final double rate;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,8 @@ class PropertiesListTile extends StatelessWidget {
           style: GoogleFonts.montserrat(fontSize: 15),
         ),
         trailing: RatingBar(
+            ignoreGestures: true,
+            initialRating: rate,
             itemSize: 30,
             ratingWidget: RatingWidget(
                 full: Icon(

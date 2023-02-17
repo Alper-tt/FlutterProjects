@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:travel_tog_ui/Pages/home_page.dart';
 
 class MyWidget extends StatelessWidget {
